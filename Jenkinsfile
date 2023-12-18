@@ -11,8 +11,8 @@ pipeline {
         stage('Stop Container') {
             steps {
                 echo 'Stopping the running container...'
-                sh 'docker stop mycontainer_Trader || true'
-                sh 'docker rm mycontainer_Trader || true'
+                sh 'docker stop mycontainertrader || true'
+                sh 'docker rm mycontainertrader || true'
                 echo 'Container stopped.'
             }
         }
@@ -22,10 +22,10 @@ pipeline {
                 echo 'Building Docker images...'
                 
                 // Menghapus image sebelumnya
-                sh 'docker rmi myimage_Trader:latest || true'
+                sh 'docker rmi myimagetrader:latest || true'
                 
                 echo 'Proses Build'
-                sh 'docker build -t myimage_Trader:latest .'
+                sh 'docker build -t myimagetrader:latest .'
                 echo 'Menampilkan hasil images'
                 sh 'docker images'
             }
@@ -34,7 +34,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Running the container...'
-                sh 'docker run -d --name mycontainer_Trader -p 3003:4000 --restart=always myimage_Trader:latest'
+                sh 'docker run -d --name mycontainertrader -p 3003:4000 --restart=always myimagetrader:latest'
 
                 echo 'Container is now running.'
                 sh 'docker ps'
